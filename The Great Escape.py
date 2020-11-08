@@ -1,31 +1,40 @@
-s=[int(i) for i in input().split()]
-n=s[0]
-m=s[1]
-temp=[[0 for _ in range(n)] for _ in range(n)]
-while m>0:
-    s=[int(i) for i in input().split()]
-    i=s[0]-1
-    j=s[1]-1
-    temp[i][j]=1
-    temp[j][i]=1
-    m-=1
-s=[int(i) for i in input().split()]
-source=s[0]-1
-destination=s[1]-1
-v=[0 for i in range(n)]
-distance=[0 for i in range(n)]
-queue=[source]
-v[source]=1
-flag=0
-while True:
-    u=queue[flag]
-    for i in range(n):
-        if temp[u][i]==1 and v[i]==0:
-            distance[i]=distance[u]+1
-            v[i]=1
-            queue.append(i)
-    if flag==len(queue)-1:
-        break
+# cook your dish here
+from sys  import stdin,stdout
+from collections import deque 
+st=lambda:list(stdin.readline().strip())
+li=lambda:list(map(int,stdin.readline().split()))
+mp=lambda:map(int,stdin.readline().split())
+inp=lambda:int(stdin.readline())
+pr=lambda n: stdout.write(str(n)+"\n")
+
+mod=1000000007
+INF=float('inf')
+
+def solve():
+    n,m=mp()
+    d={i:[] for i in range(n+1)}
+    for i in range(m):
+        a,b=mp()
+        d[a].append(b)
+        d[b].append(a)
+    x,y=mp()
+    v=[False for i in range(n+1)]
+    q=deque()
+    q.append(x)
+    dis=[INF for i in range(n+1)]
+    dis[x]=0
+    v[x]=True
+    while q:
+        a=q.popleft()
+        for i in d[a]:
+            if not v[i]:
+                v[i]=True
+                q.append(i)
+                dis[i]=dis[a]+1
+    if not v[y]:
+        pr(0)
     else:
-        flag+=1
-print(distance[destintation])
+        pr(dis[y])
+               
+for _ in range(1):
+    solve()
