@@ -1,0 +1,47 @@
+# cook your dish here
+import bisect
+first_line = input().strip()
+wormholes_times = []
+contests = []
+number_of_contests = int(first_line.split(" ")[0])
+for idx in range(number_of_contests):
+    line = input().strip()
+    contests.append([int(line.split(" ")[0]), int(line.split(" ")[1])])
+
+number_of_V_wormholes_times = int(first_line.split(" ")[1])
+V_wormhole_times = [int(i) for i in input().strip().split(" ")]
+number_of_W_wormholes_times = int(first_line.split(" ")[2])
+W_wormhole_times = [int(i) for i in input().strip().split(" ")]
+
+def give_ans(contests_to_do, v_times, w_times):
+    v_times.sort()
+    w_times.sort()
+    min_amount_of_time_possible = None
+
+    for idx in range(len(contests_to_do)):
+        contest = contests_to_do[idx]
+        max_go_time = None
+        idx_2 = bisect.bisect_right(v_times, contest[0]) - 1
+        if idx_2 != -1:
+            max_go_time = v_times[idx_2]
+
+        min_leave_time = None
+        idx_3 = bisect.bisect_left(w_times, contest[1])
+        if idx_3 < len(w_times):
+            min_leave_time = w_times[idx_3]
+
+        if max_go_time is None or min_leave_time is None:
+            continue
+
+        contests_to_do[idx].append(max_go_time)
+        contests_to_do[idx].append(min_leave_time)
+        if min_amount_of_time_possible is not None:
+            min_amount_of_time_possible = min(min_amount_of_time_possible, min_leave_time - max_go_time + 1)
+        else:
+            min_amount_of_time_possible = min_leave_time - max_go_time + 1
+
+    return min_amount_of_time_possible
+
+
+
+print(give_ans(contests, V_wormhole_times, W_wormhole_times))
