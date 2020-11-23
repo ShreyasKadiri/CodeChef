@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+#define ld long double
+
+signed main()
+{
+	std::ios::sync_with_stdio(false); cin.tie(NULL);
+
+	int t;
+	cin>>t;
+
+	for(int tt = 1; tt<=t; tt++)
+	{
+		int N, K;
+		cin>>N>>K;
+
+		int n2 = (N*(N-1))/2;
+		int n1 = ((N-2)*(N-1))/2;
+
+		if(K==n2)
+		{
+			cout<<n2<<endl;
+			for (int i = 1; i <= N; ++i)
+			{
+				for (int j = i+1; j <= N; ++j)
+				{
+					cout<<i<<" "<<j<<endl;
+				}
+			}
+		}
+		else if(K<=n1)
+		{
+			cout<<n2-K<<endl;
+			int k = K;
+			for (int i = 1; i <= N; ++i)
+			{
+				for (int j = i+1; j <= N; ++j)
+				{
+					if(i==1)
+						cout<<i<<" "<<j<<endl;
+					else
+					{
+						if(k==0)
+							cout<<i<<" "<<j<<endl;
+						else
+							k--;	
+					}
+				}
+			}
+		}
+		else
+		{
+			cout<<"-1"<<endl;
+		}
+	}
+
+	return 0;
+}
