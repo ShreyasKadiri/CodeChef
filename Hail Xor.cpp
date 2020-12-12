@@ -34,13 +34,15 @@ while(t--){
                 i++;
             z=k+1;
             
-        }
+        
         if(z>0){
             if(n<3 && z%2>0){
                 a[n-1] = a[n-1]^1;
                 a[n-2] = a[n-2]^1;
             }
         }
+}
+	
         for(long long int i=0; i<n; i++)
             cout<<a[i]<<" ";
         cout<<endl;
