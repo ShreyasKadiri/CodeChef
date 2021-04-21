@@ -1,5 +1,4 @@
 #include <iostream>
-using namespace std;
 #include<bits/stdc++.h>
 #include<math.h>
 int main()
